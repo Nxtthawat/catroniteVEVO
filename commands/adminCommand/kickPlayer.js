@@ -11,10 +11,10 @@ module.exports = {
         .setTitle("เตะผู้เล่น")
         .setCustomId(`kickModal - ${interaction.user.id}`);
 
-        const playerIdInput = new TextInputBuilder()
+        const playerNameInput = new TextInputBuilder()
         .setCustomId('playerId')
         .setRequired(true)
-        .setLabel('Id ของผู้เล่นที่จะเตะ')
+        .setLabel('Username ของผู้เล่นที่จะเตะ')
         .setStyle(TextInputStyle.Short)
 
         const reasonInput = new TextInputBuilder()
@@ -23,10 +23,10 @@ module.exports = {
         .setLabel('เหตุผลที่เตะ')
         .setStyle(TextInputStyle.Paragraph)
 
-        const playerIdActionRow = new ActionRowBuilder().addComponents(playerIdInput);
+        const playerNameActionRow = new ActionRowBuilder().addComponents(playerNameInput);
         const reasonActionRow = new ActionRowBuilder().addComponents(reasonInput);
 
-        modal.addComponents(playerIdActionRow, reasonActionRow);
+        modal.addComponents(playerNameActionRow, reasonActionRow);
 
         await interaction.showModal(modal)
 	},
