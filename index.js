@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, EmbedBuilder, WebhookClient, ActivityType } = require('discord.js');
 require('dotenv').config();
 const api = require('./api/playerManagement.js');
+const getPlayer = require('./api/getUserId.js');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -74,14 +75,16 @@ client.on(Events.InteractionCreate, async interaction =>{
 		//console.log(interaction)
 
 		try{
-			const UserId = interaction.fields.getTextInputValue('playerId');
+			const UserName = interaction.fields.getTextInputValue('playerId');
 			const Reason = interaction.fields.getTextInputValue('reasonId');
+
+			const UserId = await getPlayer.getUserId(UserName);
 
 			const embed = new EmbedBuilder()
 			.setTitle('Kicked from discord command')
 			.setColor('Yellow')
 			.addFields(
-				{name: "UserId", value: UserId},
+				{name: "Username", value: UserName + ` (${UserId})`},
 				{name: 'Reason', value: Reason},
 				{name: 'By', value: interaction.user.displayName},
 			)
@@ -104,14 +107,16 @@ client.on(Events.InteractionCreate, async interaction =>{
 		//console.log(interaction)
 
 		try{
-			const UserId = interaction.fields.getTextInputValue('playerId');
+			const UserName = interaction.fields.getTextInputValue('playerId');
 			const Reason = interaction.fields.getTextInputValue('reasonId');
+
+			const UserId = await getPlayer.getUserId(UserName);
 
 			const embed = new EmbedBuilder()
 			.setTitle('Warned from discord command')
 			.setColor('Yellow')
 			.addFields(
-				{name: "UserId", value: UserId},
+				{name: "Username", value: UserName + ` (${UserId})`},
 				{name: 'Reason', value: Reason},
 				{name: 'By', value: interaction.user.displayName},
 			)
@@ -134,9 +139,11 @@ client.on(Events.InteractionCreate, async interaction =>{
 		//console.log(interaction)
 
 		try{
-			const UserId = interaction.fields.getTextInputValue('playerId');
+			const UserName = interaction.fields.getTextInputValue('playerId');
 			const Reason = interaction.fields.getTextInputValue('reasonId');
 			const dayDuration = interaction.fields.getTextInputValue('durationId');
+
+			const UserId = await getPlayer.getUserId(UserName);
 
 			const Duration = dayDuration * 86400
 
@@ -144,7 +151,7 @@ client.on(Events.InteractionCreate, async interaction =>{
 			.setTitle('Banned from discord command')
 			.setColor('Red')
 			.addFields(
-				{name: "UserId", value: UserId},
+				{name: "UserId", value: UserName + ` (${UserId})`},
 				{name: 'Reason', value: Reason},
 				{name: 'By', value: interaction.user.displayName},
 				{name: 'Duration', value: dayDuration + " day(s)"},
@@ -167,13 +174,15 @@ client.on(Events.InteractionCreate, async interaction =>{
 		const whClient = new WebhookClient({id: process.env.WARN_LOGS_WEBHOOK_ID, token: process.env.WARN_LOGS_WEBHOOK_TOKEN})
 
 		try{
-			const UserId = interaction.fields.getTextInputValue('playerId');
+			const UserName = interaction.fields.getTextInputValue('playerId');
+
+			const UserId = await getPlayer.getUserId(UserName);
 
 			const embed = new EmbedBuilder()
 			.setTitle('Warn clear from discord command')
 			.setColor('Blue')
 			.addFields(
-				{name: "UserId", value: UserId},
+				{name: "UserId", value: UserName + ` (${UserId})`},
 				{name: 'By', value: interaction.user.displayName},
 			)
 			.setTimestamp();
@@ -194,13 +203,15 @@ client.on(Events.InteractionCreate, async interaction =>{
 		const whClient = new WebhookClient({id: process.env.BAN_LOGS_WEBHOOK_ID, token: process.env.BAN_LOGS_WEBHOOK_TOKEN})
 
 		try{
-			const UserId = interaction.fields.getTextInputValue('playerId');
+			const UserName = interaction.fields.getTextInputValue('playerId');
+
+			const UserId = await getPlayer.getUserId(UserName);
 
 			const embed = new EmbedBuilder()
-			.setTitle('Ban clear from discord command')
+			.setTitle('Unbanned from discord command')
 			.setColor('Blue')
 			.addFields(
-				{name: "UserId", value: UserId},
+				{name: "UserId", value: UserName + ` (${UserId})`},
 				{name: 'By', value: interaction.user.displayName},
 			)
 			.setTimestamp();

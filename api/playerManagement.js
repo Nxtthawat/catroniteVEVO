@@ -29,7 +29,7 @@ module.exports.ban = (data) =>{
 
 module.exports.unban = (data) =>{
     messageSend('UnBanPlayerChannel', data);
-    console.log(data)
+    console.log(JSON.stringify(data))
 }
 
 module.exports.clearWarn = (data) =>{

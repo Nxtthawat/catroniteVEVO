@@ -14,7 +14,7 @@ module.exports = {
         const playerIdInput = new TextInputBuilder()
         .setCustomId('playerId')
         .setRequired(true)
-        .setLabel('Id ของผู้เล่นที่จะยกเลิกการแบน')
+        .setLabel('Username ของผู้เล่นที่จะยกเลิกการแบน')
         .setStyle(TextInputStyle.Short)
 
         const playerIdActionRow = new ActionRowBuilder().addComponents(playerIdInput);

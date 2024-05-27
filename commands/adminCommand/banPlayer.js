@@ -14,7 +14,7 @@ module.exports = {
         const playerIdInput = new TextInputBuilder()
         .setCustomId('playerId')
         .setRequired(true)
-        .setLabel('Id ของผู้เล่นที่จะแบน')
+        .setLabel('Username ของผู้เล่นที่จะแบน')
         .setStyle(TextInputStyle.Short)
 
         const reasonInput = new TextInputBuilder()
